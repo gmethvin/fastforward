@@ -1,13 +1,8 @@
 organization in ThisBuild := "io.methvin.fastforward"
-licenses in ThisBuild := Seq(
-  "Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.html")
-)
+licenses in ThisBuild := Seq("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 homepage in ThisBuild := Some(url("https://github.com/gmethvin/fastforward"))
 scmInfo in ThisBuild := Some(
-  ScmInfo(
-    url("https://github.com/gmethvin/fastforward"),
-    "scm:git@github.com:gmethvin/fastforward.git"
-  )
+  ScmInfo(url("https://github.com/gmethvin/fastforward"), "scm:git@github.com:gmethvin/fastforward.git")
 )
 developers in ThisBuild := List(
   Developer("gmethvin", "Greg Methvin", "greg@methvin.net", new URL("https://github.com/gmethvin"))
@@ -58,3 +53,4 @@ releaseProcess := Seq[ReleaseStep](
   pushChanges
 )
 
+scalafmtOnCompile in ThisBuild := true
