@@ -1,6 +1,5 @@
 package io.methvin
 
-import scala.language.experimental.macros
 import scala.reflect.macros.blackbox
 
 package object fastforward {
@@ -20,7 +19,7 @@ package object fastforward {
     )(target: c.Expr[Any])(implicit tag: c.universe.WeakTypeTag[T]): c.universe.Tree = {
       import c.universe._
       val tpe = tag.tpe
-      val implementedMembers: Seq[Tree] = tpe.members.collect {
+      val implementedMembers = tpe.members.collect {
         case member if member.isMethod && member.isAbstract =>
           val term = member.asTerm
           val termName = term.name.toTermName
@@ -40,7 +39,7 @@ package object fastforward {
             }
             q"override def $termName(...$paramDefs) = $target.$termName(...$paramNames)"
           }
-      }(collection.breakOut)
+      }.toSeq
       val impl = if (implementedMembers.isEmpty) {
         q"new $tpe { }"
       } else {

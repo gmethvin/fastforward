@@ -8,13 +8,14 @@ developers in ThisBuild := List(
   Developer("gmethvin", "Greg Methvin", "greg@methvin.net", new URL("https://github.com/gmethvin"))
 )
 
-scalaVersion in ThisBuild := "2.12.4"
+scalaVersion in ThisBuild := "2.13.0"
+crossScalaVersions in ThisBuild := Seq("2.12.8", scalaVersion.value)
 
 lazy val macros = (project in file("macros"))
   .settings(
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-      "org.scalatest" %% "scalatest" % "3.0.4" % Test
+      "org.scalatest" %% "scalatest" % "3.0.8" % Test
     )
   )
 
@@ -46,7 +47,7 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  releaseStepCommand("publishSigned"),
+  releaseStepCommandAndRemaining("+publishSigned"),
   setNextVersion,
   commitNextVersion,
   releaseStepCommand("sonatypeReleaseAll"),
